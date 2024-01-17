@@ -5,12 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        .blue{
+            color : skyblue;
+        }
+
+        .red {
+            color : orange;
+        }
+    </style>
 </head>
 <body>
-    
+    <div>
+        <h1>Where do you want to go?</h1>
+        <h2>Travel Dstinations</h2>
+        <p>Plan your next adventure.</p>
+        <ul id="destinations">
+            <li>Rome</li>
+            <li>Paris</li>
+            <li class="blue">Rio</li>
+        </ul>
+    </div>
+    <script>
+        //document.querySelector('input')
+        //$('input') jQuery();  jQuery 객체 생성 함수
+        let result = $('#destinations')
+                     .css('color', 'gray');
+        console.log(typeof result, result);
+    </script>
 </body>
 </html>
-<script>
-    //document.querySelector('input')
-    //$('input')
-</script>
