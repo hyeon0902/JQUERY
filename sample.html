@@ -57,7 +57,7 @@
             <td>001</td>
             <td>일반</td>
             <td name="id">user01</td>
-            <td><input type="password" value="123456"></td>
+            <td><input type="password" value="1234"></td>
             <td><p>한지수</p></td>
             <td>2023-10-31</td>
             <td><button type="button">Del</button></td>
@@ -67,7 +67,7 @@
             <td>002</td>
             <td>VIP</td>
             <td name="id">user99</td>
-            <td><input type="password" value="999999"></td>
+            <td><input type="password" value="9999"></td>
             <td><p id="here">강호동</p></td>
             <td>2023-11-11</td>
             <td><button type="button">Del</button></td>
@@ -120,13 +120,101 @@
                 .firstElementChild // input:password
                 .value); 
 
-                // jQuery
+      // jQuery
     console.log($('#here')
                .parent() // td > p#here
                .prev() // td > input:password
                .children().first() // input:password
                .val());
 
-  </script>
+    $('input[type="password"]').prop('type', 'text');
+    // $('#list').css('border', '2px solid black');
+    $('#list, #list *').not('input,button,p').css('border', '1px solid black');
+    // , 그룹 선택자
+    // not 선택자 
+
+    /* on('event', function(event) {
+       field ) target, currentTarget
+       method ) preventDefault(), stopPropagation()
+    });
+    */
+
+    // 자바스크립트
+    // document.querySelectorAll('#list tbody > tr')
+    //         .forEach(trTag => {
+    //           trTag.addEventListener('click', function(event){
+    //             event.currentTarget.classList.toggle('selected');
+    //           })
+    //         })
+  
+
+    // jQuery
+    $('#list tbody > tr').on('click', function(event) {
+      $(event.currentTarget).toggleClass('selected');  
+    })
+
+    // Del 버튼에 click 이벤트
+    $('tbody button:contains(Del)').on('click', function(event) {
+      event.stopPropagation();
+      // 1) 선택된 tr을 복사해서 맨 마지막 줄에 추가
+      let selectedTr = $(event.currentTarget).closest('tr');
+      // let cloneTr = selectedTr.clone();
+      // $('tbody').append(cloneTr);
+      // 2) 선택한 tr을 삭제
+      // selectedTr.remove(); // 대상 자체를 삭제
+      selectedTr.empty(); // 하위요소를 삭제
+    });
+    // select 태그에 change 이벤트
+    $('select').on('change', function(event) {
+       let trTag = $('<tr></tr>');
+
+       let tdTag = $('<td/>');
+       let inputTag = $('<input type="checkbox"/>');
+       console.log(inputTag);
+       tdTag.append(inputTag);
+       trTag.append(tdTag);
+
+       tdTag = $('<td/>').text('003');
+       trTag.append(tdTag);
+       ////////////////////////////////
+
+       tdTag = $('<td/>').text(event.currentTarget.value);
+       trTag.append(tdTag);
+
+       tdTag = $('<td/>').prop('name', 'id').text('user02');
+       trTag.append(tdTag);
+       
+
+       tdTag = $('<td/>')
+               .append(($('<input/>')).attr('type', 'password').val(5555));
+       trTag.append(tdTag);
+
+       tdTag = $('<td><p>이한나</p></td>')
+       trTag.append(tdTag);
+
+       tdTag = $('<td/>').text('2024-01-17');
+       trTag.append(tdTag);
+
+       tdTag = $('<td/>');
+       let btnTag = $('<button/>').prop('type', 'button').text('Del');
+       tdTag.append(btnTag);
+       trTag.append(tdTag);
+
+       console.log(trTag);
+       $('#list tbody').append(trTag);
+       $('#list, #list *').not('input, button,p').append(trTag).css('border', '1px solid black');
+    });
+
+    // 전체 선택 시 이벤트
+    $('#allChk').on('change', function(event) {
+      let result = event.currentTarget.checked;  
+      $(':checkbox').prop('checked', result);
+
+      console.log(result);
+        // $(':checkbox').prop('checked', true);
+        // $(':checkbox').prop('checked', false);
+    })
+    
+ </script>
   </body>
   </html>
