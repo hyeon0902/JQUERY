@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        .selected {
+            background-color: goldenrod;
+        }
+
+        .right {
+          text-align: right;
+        }
+
+        .left {
+          text-align: left;
+        }
+
+        .blue {
+          background-color: skyblue;
+        }
+
+        .green {
+          background-color: green;
+        }
+
+        .emphasis {
+          font-weight: bold;
+        }
+    </style>
+  </head>
+  <body>
+    <div>
+      <button type="button" id="insertBtn">+</button>
+      <select>
+        <option>일반</option>
+        <option>VIP</option>
+      </select>
+      <table id="list">
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="allChk" /></th>
+            <th>No.</th>
+            <th>구분</th>
+            <th>아이디</th>
+            <th>비밀번호</th>
+            <th>이름</th>
+            <th>가입날짜</th>
+            <th>Del</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="selected">
+            <td><input type="checkbox"/></td>
+            <td>001</td>
+            <td>일반</td>
+            <td name="id">user01</td>
+            <td><input type="password" value="123456"></td>
+            <td><p>한지수</p></td>
+            <td>2023-10-31</td>
+            <td><button type="button">Del</button></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"/></td>
+            <td>002</td>
+            <td>VIP</td>
+            <td name="id">user99</td>
+            <td><input type="password" value="999999"></td>
+            <td><p id="here">강호동</p></td>
+            <td>2023-11-11</td>
+            <td><button type="button">Del</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  <script>
+    // 1) 헤더를 구성하는 항목 => 별도의 배열
+    let headList = $('th');
+    console.log(headList);
+    // headList = $('#list thead th');
+    // console.log(headList);
+    // headList = $('tr > th');
+    // console.log(headList);
+    let headAry = [];
+    headList.each((idx, tag) => {  // each  첫번째 값 = 인덱스, 두번째 값 = 배열의 태그값 세번째 값 
+      // each 안에서는 자바스크립트로 변환
+      console.log(tag.textContent);
+      // jQuery 객체로 다시 변환
+      console.log($(tag).text());
+      let value = null;
+      if(tag.tagName == 'INPUT'){
+        value = $(tag).children().attr('type');
+      }else {
+        value = tag.textContent;
+      }
+
+      headAry.push(value);
+    });
+    console.log(headAry);
+    
+
+    // 2) 특정 속성 값만 사용
+    console.log($('#here'));
+    console.log($('selected'));
+    console.log($('[name="id"]'));
+  
+    // 3) 복합 선택자 - id 속성이 here인 태그를 하위요소로 두는 tr 태그
+    // 3-1)
+    console.log($('#here').parent().parent());
+    console.log($('#here').closest('tr'));
+    // 3-2)
+    console.log($('tr:has(#here)'));
+
+      // 자바스크립트
+    console.log(document.getElementById('here')
+                .parentElement // td > p#here
+                .previousElementSibling // td > input:password
+                .firstElementChild // input:password
+                .value); 
+
+                // jQuery
+    console.log($('#here')
+               .parent() // td > p#here
+               .prev() // td > input:password
+               .children().first() // input:password
+               .val());
+
+  </script>
+  </body>
+  </html>
