@@ -25,13 +25,49 @@
             <li>Paris</li>
             <li class="blue">Rio</li>
         </ul>
+        <input type="checkbox">
+        <input type="radio">
     </div>
     <script>
         //document.querySelector('input')
         //$('input') jQuery();  jQuery 객체 생성 함수
-        let result = $('#destinations')
-                     .css('color', 'gray');
-        console.log(typeof result, result);
+        // selector : 탐색
+        // # : id 속성
+        console.log($('#destinations'));
+        // . : class 속성
+        console.log($('.blue'));
+        // tagName
+        console.log($('h1'));
+        // [attribute] : 일반속성
+        console.log($('[name]'));
+        // 관계를 기반
+        console.log($('ul > li'));
+
+        console.log($('input'));
+        $('input').prop('checked', true);
+
+        /*
+         innerHTML : html()
+         textContent : text()
+         class : addClass(), removeClass(),
+                 hasClass(), toggleClass()
+         value : val()
+         style : css()
+         기타 : prop(), attr()
+        */
+
+        let result = $('ul').html();  // 태그전체
+        console.log(result);
+        result = $('ul').text(); // 태그를 제외한 text 
+        console.log(result);
+
+        $('h1').text('Hello, jQuery!');
+        $('h2').css('background-color', 'green',);
+        result = $('h2').css('color','white');
+        console.log(result);
+
+        $('p').prop('class', 'test');
+        $('input').prop('name','dumi');
     </script>
 </body>
 </html>
