@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <button onclick="click1()">등록</button>
+    <button onclick="click2()">수정</button>
+    <button onclick="click3()">삭제</button>
+    <script>
+        /*
+        
+        $.ajax('', {
+            // method, default : get
+            type : '',
+            // 서버로 전송할 데이터의 content-type
+            // default : application/x-www-form-urlencoded
+            // JSON : application/json
+            contentType : 'application/json',
+            // 서버로 전송할 데이터 : object => queryString
+            data : {},
+            // 서버로 통신을 하기 직전 추가 작업
+            beforeSend : function(xhr){
+
+            }
+        })
+        .done(result => console.log(result)) // 통신이 성공한 경우
+        .done(result => console.log(result))
+        .fail(err => console.log(err));
+        
+        */
+       $.ajax('http://localhost:8080/app/emps/')  // 전체조회
+       .done(result => {
+        console.log(result);
+       })
+       .fail(err => console.log(err));
+       
+
+       $.ajax('http://localhost:8080/app/emps/206')  // 단건조회
+       .done(result => {
+        console.log(result);
+       })
+       .fail(err => console.log(err));
+
+
+       function click1(){ // 등록
+            let data = {
+            lastName: "hohoho",
+            salary: 20000,
+            email: "hohhooho", // UNIQE 제약 조건
+            hireDate: "2024-01-18",
+            jobId: "MK_MAN", // FOREIGN KEY 제약 조건 
+        };
+
+
+           $.ajax('http://localhost:8080/app/emps', {
+               type : 'post',
+               contentType : 'application/json',
+               data : JSON.stringify(data),
+            })  
+            .done(result => {
+                console.log('Insert', result);
+            })
+            .fail(err => console.log(err));
+        }
+        
+        function click2(){ // 수정
+            let data = {
+            lastName: "hihihi",
+            salary: 25000,
+            email : "hihihi@gmail.com"
+        };
+            $.ajax('http://localhost:8080/app/emps/206', {
+               type : 'put',
+               contentType : 'application/json',
+               data: JSON.stringify(data),
+            })  
+            .done(result => {
+                console.log('Update', result);
+            })
+            .fail(err => console.log(err));
+        }
+
+        function click3(){ // 삭제
+           $.ajax('http://localhost:8080/app/emps/206', {
+               type : 'delete',
+            })  
+            .done(result => {
+                console.log('Delete', result);
+            })
+            .fail(err => console.log(err));
+        }
+
+    </script>
+</body>
+</html>
